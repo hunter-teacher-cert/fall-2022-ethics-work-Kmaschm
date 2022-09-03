@@ -1,7 +1,12 @@
 # gol.py
 # Katherine (Kate) Maschmeyer
 # CSCI 77800 Fall 2022
-# collaborators: 
+# collaborators: None on Python version
+# On Java version:
+# * Yeidy Levels - YLevels <-- driving
+# * Usman Ahmed - usman0527 <-- designated slacker
+# * Rachel Kaufman - RACHELKAUFMAN <-- collab
+# * Kate Maschmeyer - kmaschm <-- collab, have made additional comments/formatting changes
 # consulted: https://www.w3schools.com/python/default.asp
 
 # Python version of: https://replit.com/@Kmaschm/cohort-3-summer-work-Kmaschm#programming/3/Cgol.java
@@ -23,6 +28,9 @@
 #    * Each dead cell adjacent to exactly 3 living neighbours is a birth cell. It will come alive next generation.
 
 #    NOTA BENE:  All births and deaths occur simultaneously. Together, they constitute a single generation.
+
+import random
+# using random to seed Game of Life
 
 # Constants for ease of reading
 ALIVE = "X"
@@ -99,49 +107,61 @@ def getNextGenCell(board, r, c):
   return DEAD # COD: overcrowding (> 3) or isolation (< 2)
   
 
+# generate and return a new board representing next generation
+def generateNextBoard(board):
+  rows = len(board)
+  cols = len(board[0])
+  nextBoard = createNewBoard(rows, cols)
 
+  for i in range(rows):
+    for j in range(cols):
+      setCell (nextBoard, i, j, getNextGenCell(board, i, j)); 
+      
+    
+  return nextBoard
   
-
-
   
-  
-
-
 
 # ##############TESTING#############
 board = createNewBoard(25,25);
 
+# # puts living cells into top left corner of board and prints it out
+# setCell(board, 0, 0, 'X')
+# setCell(board, 0, 1, 'X')
+# setCell(board, 1, 0, 'X')
+# setCell(board, 2, 2, 'X')
+# setCell(board, 3, 3, 'X')
+# setCell(board, 2, 3, 'X')
 
-    # for (int i = 0; i < board.length; i++) 
-    # {
-    #   for (int j = 0; j < board[i].length; j++) 
-    #   {
-    #     if (Math.random() > 0.9) // expect 10% of board alive 
-    #     {
-    #       setCell (board, i, j, ALIVE);
-    #     }
-    #   }
-    # }
+# print("Generation 0")
+# printBoard(board)
+# print("--------------------------\n\n")
+# print("Row 0, Col 0 has " + str(countNeighbours(board, 0, 0)) + " neighbours") # 2
+# print("Row 0, Col 1 has " + str(countNeighbours(board, 0, 1)) + " neighbours") # 2
+# print("Row 0, Col 1 has " + str(countNeighbours(board, 1, 1)) + " neighbours") # 4
+# print("Row 1, Col 2 has " +str(countNeighbours(board, 1, 2)) + " neighbours") # 3
+# print("Row 3, Col 1 has " + str(countNeighbours(board, 3, 1)) + " neighbours") # 1
+# print("Row 5, Col 5 has " + str(countNeighbours(board, 5, 5)) + " neighbours") # 0
+# print("Row 0, Col 0 will become " + getNextGenCell(board, 0, 0))  # X (survived)
+# print("Row 1, Col 1 will become " + getNextGenCell(board, 1, 1)) # returned a space for DEAD (overcrowded)
+# print("Row 1, Col 2 will become " + getNextGenCell(board, 1, 2)) # X (birth)
+# print("Row 5, Col 5 will become " + getNextGenCell(board, 5, 5)) # returned a space for DEAD (dtayed dead)
 
-# puts living cells into top left corner of board and prints it out
-setCell(board, 0, 0, 'X')
-setCell(board, 0, 1, 'X')
-setCell(board, 1, 0, 'X')
-setCell(board, 2, 2, 'X')
-setCell(board, 3, 3, 'X')
-setCell(board, 2, 3, 'X')
+
+
+for i in range(len(board)):
+  for j in range(len(board[0])):
+    if random.random() > 0.9: # expect 10% of board alive 
+      setCell (board, i, j, ALIVE)
+
 
 print("Generation 0")
 printBoard(board)
 print("--------------------------\n\n")
-print("Row 0, Col 0 has " + str(countNeighbours(board, 0, 0)) + " neighbours") # 2
-print("Row 0, Col 1 has " + str(countNeighbours(board, 0, 1)) + " neighbours") # 2
-print("Row 0, Col 1 has " + str(countNeighbours(board, 1, 1)) + " neighbours") # 4
-print("Row 1, Col 2 has " +str(countNeighbours(board, 1, 2)) + " neighbours") # 3
-print("Row 3, Col 1 has " + str(countNeighbours(board, 3, 1)) + " neighbours") # 1
-print("Row 5, Col 5 has " + str(countNeighbours(board, 5, 5)) + " neighbours") # 0
-print("Row 0, Col 0 will become " + getNextGenCell(board, 0, 0))  # X (survived)
-print("Row 1, Col 1 will become " + getNextGenCell(board, 1, 1)) # returned a space for DEAD (overcrowded)
-print("Row 1, Col 2 will become " + getNextGenCell(board, 1, 2)) # X (birth)
-print("Row 5, Col 5 will become " + getNextGenCell(board, 5, 5)) # returned a space for DEAD (dtayed dead)
+
+for i in range(10):
+  board = generateNextBoard (board);
+  print("Generation " + str(i))
+  printBoard(board)
+  print("--------------------------\n\n")
 
