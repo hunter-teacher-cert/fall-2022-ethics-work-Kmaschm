@@ -51,7 +51,7 @@ def setCell(board, r, c, val):
   board[r][c] = val
 
 # Count the living neighbors of a cell 
-def countNeighbors(board, r, c):
+def countNeighbours(board, r, c):
   counter = 0
   rows = len(board)
   cols = len(board[0])
@@ -75,11 +75,73 @@ def countNeighbors(board, r, c):
             # check that we're not in the center
             if not(i == r and j == c):
               # if the neighbor is alive, count them!
-              if board[i][j] == ALIVE 
-                counter++;
+              if board[i][j] == ALIVE: 
+                counter = counter + 1
      
   return counter
 
 
-printBoard(createNewBoard(5, 5))
+# precond: given a board and a cell
+# postcond: return next generation cell state based on CGOL rules
+# (alive 'X', dead ' ')
+
+def getNextGenCell(board, r, c):
+
+  currentStatus = board[r][c]
+  aliveNeighbours = countNeighbours(board, r, c);
+
+  if currentStatus == DEAD and aliveNeighbours == 3:
+    return ALIVE  # birth
+  
+  if currentStatus == ALIVE and (aliveNeighbours == 2 or aliveNeighbours == 3):
+    return ALIVE # survivors
+    
+  return DEAD # COD: overcrowding (> 3) or isolation (< 2)
+  
+
+
+  
+
+
+  
+  
+
+
+
+# ##############TESTING#############
+board = createNewBoard(25,25);
+
+
+    # for (int i = 0; i < board.length; i++) 
+    # {
+    #   for (int j = 0; j < board[i].length; j++) 
+    #   {
+    #     if (Math.random() > 0.9) // expect 10% of board alive 
+    #     {
+    #       setCell (board, i, j, ALIVE);
+    #     }
+    #   }
+    # }
+
+# puts living cells into top left corner of board and prints it out
+setCell(board, 0, 0, 'X')
+setCell(board, 0, 1, 'X')
+setCell(board, 1, 0, 'X')
+setCell(board, 2, 2, 'X')
+setCell(board, 3, 3, 'X')
+setCell(board, 2, 3, 'X')
+
+print("Generation 0")
+printBoard(board)
+print("--------------------------\n\n")
+print("Row 0, Col 0 has " + str(countNeighbours(board, 0, 0)) + " neighbours") # 2
+print("Row 0, Col 1 has " + str(countNeighbours(board, 0, 1)) + " neighbours") # 2
+print("Row 0, Col 1 has " + str(countNeighbours(board, 1, 1)) + " neighbours") # 4
+print("Row 1, Col 2 has " +str(countNeighbours(board, 1, 2)) + " neighbours") # 3
+print("Row 3, Col 1 has " + str(countNeighbours(board, 3, 1)) + " neighbours") # 1
+print("Row 5, Col 5 has " + str(countNeighbours(board, 5, 5)) + " neighbours") # 0
+print("Row 0, Col 0 will become " + getNextGenCell(board, 0, 0))  # X (survived)
+print("Row 1, Col 1 will become " + getNextGenCell(board, 1, 1)) # returned a space for DEAD (overcrowded)
+print("Row 1, Col 2 will become " + getNextGenCell(board, 1, 2)) # X (birth)
+print("Row 5, Col 5 will become " + getNextGenCell(board, 5, 5)) # returned a space for DEAD (dtayed dead)
 
