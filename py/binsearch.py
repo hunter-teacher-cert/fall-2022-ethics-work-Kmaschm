@@ -80,6 +80,10 @@ print(binSearch(iList3, 43)) # -1
 
 
 iList4 = ["apple", "banana", "cherry"]
+print("***************")
+print("List 4:", end=" ")
+print(iList4)
+print( "Now testing binSearch on iList4...")
 
 print(binSearch(iList4, "apple")) # 0
 print(binSearch(iList4, "banana"))  # 1
