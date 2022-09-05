@@ -71,7 +71,7 @@ print(binSearch(iList2, 42)) # 5
 print(binSearch(iList2, 43)) # -1 
 
 print("***************")
-print( "Now testing binSearch on iArr3 (even integers 0 to 2*999)...")
+print( "Now testing binSearch on iList3 (even integers 0 to 2*999)...")
 print(binSearch(iList3, 4)) # 2
 print(binSearch(iList3, 8)) # 3
 print(binSearch(iList3, 5)) # -1
