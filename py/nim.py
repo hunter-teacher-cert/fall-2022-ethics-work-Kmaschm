@@ -48,7 +48,7 @@ print("Welcome to Nim!")
 print("*****************************")
 
 while stones > 0:
-  print("*****Your turn!*****\nThere are " + str(stones) + " stones in our bag.\nHow many would you like to choose? 1, 2,or 3.")
+  print(f"*****Your turn!*****\nThere are {stones} stones in our bag.\nHow many would you like to choose? 1, 2, or 3.")
   stonesTaken = input()
   stonesTaken = int(stonesTaken)
   
@@ -59,7 +59,7 @@ while stones > 0:
     stonesTaken = input()
     stonesTaken = int(stonesTaken)
           
-  print("You chose to take " + str(stonesTaken))
+  print(f"You chose to take {stonesTaken} stones.")
       
   stones -= stonesTaken
   
@@ -67,15 +67,12 @@ while stones > 0:
     print("YOU WIN!")
     # break
   else:
-    print("There are now " + str(stones) + " stones in the bag.\n *****AI's turn*****"); 
+    print(f"There are now {stones} stones in the bag.\n *****AI's turn*****") 
           
           
-          
-         
-  
   # AI's turn - GOAL: WIN!
   stonesTaken = 4 - stonesTaken;
-  print("The computer chose to take " + str(stonesTaken))
+  print(f"The computer chose to take {stonesTaken} stones.")
   
   stones -= stonesTaken;
           
@@ -83,7 +80,7 @@ while stones > 0:
     print("AI WINS! SORRY. :(((");
     break;
   else:
-    print("There are now " + str(stones) + " stones in the bag.")
+    print(f"There are now {stones} stones in the bag.")
         
 
         
