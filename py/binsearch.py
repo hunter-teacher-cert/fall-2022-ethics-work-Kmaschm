@@ -1,4 +1,4 @@
-cd py# binsearch.py
+# binsearch.py
 # Katherine (Kate) Maschmeyer
 # CSCI 77800 Fall 2022
 # collaborators: 
@@ -19,18 +19,18 @@ def binSearchRec(myList, target, loPos, hiPos):
   
   # Exit case: If lo & hi have crossed, target not present
   if hiPos < loPos:  # crossing happens when hi is less than lo
-    print("Target, " + str(target) + ", not found.")
+    print(f"Target, {target}, not found.")
     return NOT_FOUND
      
   # Target found
   if myList[mPos] == target:
-    # print("Target, " + str(target) + ", found at location " + str(mPos))
+    # print(f"Target, {target}, found at location {mPos})
     return mPos
     
   # Value at mid index higher than target
   elif myList[mPos] > target: 
     # we need to look at the lower half, so set hi to 1 below current middle
-   # print("Target: " + str(target) + ". Current location: " + str(mPos) + " with value: " + str(myList[mPos]) + " is too high.")
+   # print(f"Target: {target}. Current location: {mPos} with value: {myList[mPos]} is too high.")
     hiPos = mPos - 1
     
   # Value at mid index lower than target
