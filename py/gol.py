@@ -8,6 +8,8 @@
 # * Rachel Kaufman - RACHELKAUFMAN <-- collab
 # * Kate Maschmeyer - kmaschm <-- collab, have made additional comments/formatting changes
 # consulted: https://www.w3schools.com/python/default.asp
+# Supported: Shana & Saranii
+
 
 # Python version of: https://replit.com/@Kmaschm/cohort-3-summer-work-Kmaschm#programming/3/Cgol.java
 
