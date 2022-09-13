@@ -10,6 +10,7 @@
 #jmtheo8 - Jerusha Theobald 
 #
 # consulted: (None) 
+# Supported: Shana & Saranii
 
 
 # Python version of: https://replit.com/@Kmaschm/cohort-3-summer-work-Kmaschm#programming/1/Nim.java
@@ -78,7 +79,7 @@ while stones > 0:
           
   if stones == 0:
     print("AI WINS! SORRY. :(((");
-    break;
+    break
   else:
     print(f"There are now {stones} stones in the bag.")
         
