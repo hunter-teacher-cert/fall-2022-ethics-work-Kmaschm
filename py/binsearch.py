@@ -1,9 +1,11 @@
 # binsearch.py
 # Katherine (Kate) Maschmeyer
 # CSCI 77800 Fall 2022
-# collaborators: 
-# consulted: 
+# collaborators: --
+# consulted: --
 # Python version of https://replit.com/@Kmaschm/cohort-3-summer-work-Kmaschm#programming/5/BinSearch.java
+# Supported: Saranii
+
 
 # binSearch(myList, target) -- searches an list for target 
 # precondition: input list is all of same type and is sorted in ascending order
