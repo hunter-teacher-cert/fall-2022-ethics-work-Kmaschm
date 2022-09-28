@@ -1,3 +1,7 @@
+# regex.py
+# Katherine (Kate) Maschmeyer
+# CSCI 77800 Fall 2022
+
 import re
 
 # Names can contain:
@@ -15,8 +19,10 @@ import re
 # / ? 
 # "Robert'); DROP TABLE Students;--" notwithstanding
 
+# REFERENCED: https://regexr.com/3f8cm
+
 def find_names(line):
-    pattern = r"([A-Z][a-z]+\s[A-Za-z]+)|([A-Z][a-z]+\.)"
+    pattern = r"([A-Za-z][-,A-Za-z. ']+[ ]*)+"
     result = re.findall(pattern,line)
     return result
 
