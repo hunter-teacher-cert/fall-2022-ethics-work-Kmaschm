@@ -1,12 +1,23 @@
 import re
 
+# Names can contain:
+# A-Z, a-z ([A-Za-z]+)
+# spaces \s
+# .  (will have letters before, space after):  ([A-Z]([a-z]*)\.)
+# ' (letters before & after): ([A-Za-z]+\'[A-Za-z]+)
+# - (lowercase letters before, upper case right after) ([a-z]+\-[A-Z][a-z]+)
+
+# Names do not contain:
+# 0-9
+# ! @ # $ % ^ & * () + =
+# [] {} | \
+# : ; " 
+# / ? 
+# "Robert'); DROP TABLE Students;--" notwithstanding
 
 def find_names(line):
-    pattern = r"[a-zA-Z]"
+    pattern = r"([A-Z][a-z]+\s[A-Za-z]+)|([A-Z][a-z]+\.)"
     result = re.findall(pattern,line)
-
-    pattern=r'(October|Oct|November|Nov)( [0-9]{1,2}, [0-9]{4})'
-    result = result + re.findall(pattern,line)
     return result
 
 
