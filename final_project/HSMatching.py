@@ -9,8 +9,13 @@ class Student:
   def __str__(self):
     return f"{self.name} Lottery: {self.lottery_num}"
 
+class School:
+  def __init__(self, school_name, zoned, avail_seats, priority_seats, student_matches):
+  self.school_name = school_name
 
 
 s1 = Student("Al", 5, ["Red", "Yellow", "Blue"], False, False, "Red")
 
 print(s1)
+
+
