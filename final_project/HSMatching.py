@@ -26,7 +26,10 @@ class School:
 
     
   def __str__(self):
-    return f"School Name: {self.school_name}"
+    info = f"School Name: {self.school_name}\nZoned:{self.zoned}\nPriority Seats: {self.priority_seats}\nStudent Matches: "
+    for student in self.student_matches:
+        info += f"{student.student_name} "
+    return info
 
 
 
