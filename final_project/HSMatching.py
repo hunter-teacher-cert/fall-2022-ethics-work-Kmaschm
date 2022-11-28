@@ -50,7 +50,7 @@ class School:
     info = f"School Name: {self.school_name}\nZoned: {self.zoned}\nAvailable Seats: {self.avail_seats}\nPriority Seats: {self.priority_seats}\nStudent Matches: "
     for st in self.student_matches:
       info += f"{st.student_name} "
-        #info += f"{st.student_name}: {self.student_matches[st]} "
+    info += "\n"
     return info
 
 
@@ -137,7 +137,14 @@ def main():
   Red = School("Red", True, 3, 0, {})
   Blue = School("Blue", False, 3, 2, {})
   Yellow = School("Yellow", False, 3, 1, {})
-  
+
+  print("SCHOOL INFORMATION:\n")
+  print("*****RED*****")
+  print(Red)
+  print("*****BLUE*****")
+  print(Blue)
+  print("*****YELLOW*****")
+  print(Yellow)  
 
 
   # Students:
@@ -158,7 +165,7 @@ def main():
   school = student.school_rankings[student.next_pref]
   
   while len(unmatched_students) > 0:
-    print(f"Attempting match for {student.student_name} at {school.school_name}")
+    print(f"Attempting match for {student.student_name} at {school.school_name}...")
     if school.avail_seats > 0:
       set_match(student, school)
       if student in unmatched_students:
@@ -167,9 +174,11 @@ def main():
         student = unmatched_students[0]
         school = student.school_rankings[student.next_pref]
     else: # no free seats
+      print(f"No open seats at {school.school_name}. Rearranging may happen.")
       if school.zoned:
         z_rem_st = zoned_school_matching(student, school)
         if z_rem_st != student:
+          print(f"Unmatching {z_rem_st.student_name} from {school.school_name}")
           school.student_matches.pop(z_rem_st)
           school.avail_seats += 1
           set_match(student, school)
@@ -186,6 +195,7 @@ def main():
         p_rem_st = priority_school_matching(student, school)
         #print(f"Remove {p_rem_st.student_name} from {school.school_name}")
         if p_rem_st != student:
+          print(f"Unmatching {p_rem_st.student_name} from {school.school_name}")
           school.student_matches.pop(p_rem_st)
           school.avail_seats += 1
           set_match(student, school)
