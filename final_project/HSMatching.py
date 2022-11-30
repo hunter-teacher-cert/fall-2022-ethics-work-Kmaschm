@@ -56,7 +56,7 @@ class School:
 
     
 # takes in a dictionary: student: lottery_num
-# return the student with the lowest (worst) lottery number   
+# return the student with the lowest (worst) lottery number 
 def lowest_lottery_num(st_dict):
   return max(st_dict, key=st_dict.get)
     
