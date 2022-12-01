@@ -5,9 +5,9 @@
 # 
 # Demonstrates the algorithm & set up displayed in videos from https://medium.com/algorithms-in-the-wild/decoding-the-nyc-school-admission-lottery-numbers-bae7148e337d
 
-#import uuid
+#import uuid  - chose to use student lottery numbers from the video for ease/clarity of demonstration
 
-# EXAMPLE:
+# Student - EXAMPLE:
 #  Ali = Student("Ali", 3, (Red, Blue, Yellow), True, {Red: False, Yellow: False, Blue: False}, 0, None)
 class Student:
   def __init__(self, student_name, lottery_num, school_rankings,  priority, zoning, next_pref, current_match):
@@ -26,16 +26,22 @@ class Student:
     info += f"\nPriority: {self.priority}\nZoned:" 
     for school in self.zoning:
       info += f" {school.school_name}: {self.zoning[school] }"
-    info += f"\nNext Top Preference: {self.school_rankings[self.next_pref].school_name}\n"
+    info += "\nNext Top Preference: "
+    # once matching algorithm is done, next pref might be out of bounds, so skip if full
+    if self.next_pref < len(self.school_rankings)-1:
+      info += f"{self.school_rankings[self.next_pref].school_name}\n"
+    else:
+      info += "\n"
     if(self.current_match is not None):
       info += f"Current Match: {self.current_match.school_name}"
     else: 
       info += "Current Match: None"
+    info +="\n"
     return info
 
 
     
-# EXAMPLE: 
+# School - EXAMPLE: 
 #  Red = School("Red", True, 3, 0, {})
 class School:
   def __init__(self, school_name, zoned, avail_seats, priority_seats, student_matches):
@@ -50,6 +56,8 @@ class School:
     info = f"School Name: {self.school_name}\nZoned: {self.zoned}\nAvailable Seats: {self.avail_seats}\nPriority Seats: {self.priority_seats}\nStudent Matches: "
     for st in self.student_matches:
       info += f"{st.student_name} "
+    if len(self.student_matches) == 0:
+      info += "[None yet]"
     info += "\n"
     return info
 
@@ -61,7 +69,7 @@ def lowest_lottery_num(st_dict):
   return max(st_dict, key=st_dict.get)
     
 # takes in a student and a zoned school that has matches
-# returns student that doesn't match/needs to be removed
+# returns student that doesn't match/needs to be removed from matched list
 def zoned_school_matching(stu, sch):
   zoned_st = {}
   unzoned_st = {}
@@ -84,8 +92,8 @@ def zoned_school_matching(stu, sch):
     unzoned_st.update({stu: stu.lottery_num})
     return lowest_lottery_num(unzoned_st)   
 
-# takes in a student and a school with priority set asidesthat has matches
-# returns the student that will either not match or will be removed
+# takes in a student and a school with priority set asides that has matches
+# returns the student that will either not match or will be removed from matched list
 def priority_school_matching(student, school):
   pr_seats = school.priority_seats
   #print(f"{pr_seats} priority in {school.school_name}")
@@ -118,13 +126,12 @@ def priority_school_matching(student, school):
 
       
       
-
+# sets match for student and school
 def set_match(student, school):
-  print(f"*****Temp Matching: {student.student_name} and {school.school_name} *****")
+  print(f">> Temp Matching: {student.student_name} and {school.school_name}")
   student.current_match = school
   student.next_pref += 1
   school.student_matches.update({student: student.lottery_num})
-  #school.student_matches.append(student)
   school.avail_seats -= 1
   
      
@@ -138,7 +145,7 @@ def main():
   Blue = School("Blue", False, 3, 2, {})
   Yellow = School("Yellow", False, 3, 1, {})
 
-  print("SCHOOL INFORMATION:\n")
+  print("**************SCHOOL INFORMATION**************\n")
   print("*****RED*****")
   print(Red)
   print("*****BLUE*****")
@@ -159,14 +166,25 @@ def main():
   Hal = Student("Hal", 4, (Blue, Red, Yellow), False, {Red: False, Yellow: False, Blue: False}, 0, None)
   Isa = Student("Isa", 7, (Red, Yellow, Blue), False, {Red: False, Yellow: False, Blue: False}, 0, None)
 
+  # list of all students before matching
   unmatched_students = [Ali, Bee, Cal, Dan, Eva, Flo, Gus, Hal, Isa]
 
+  print("**************STUDENTS**************")
+  for st in unmatched_students:
+    print(f"*****{st.student_name}*****")
+    print(st)
+  print("")
+  print("Starting Matching Algorithm...\n")
+
+  # setting up algorithm
   student = unmatched_students[0]
   school = student.school_rankings[student.next_pref]
-  
+
+  # match all students
   while len(unmatched_students) > 0:
     print(f"Attempting match for {student.student_name} at {school.school_name}...")
     if school.avail_seats > 0:
+      print(f"Seat available at {school.school_name}")
       set_match(student, school)
       if student in unmatched_students:
         unmatched_students.remove(student)
@@ -178,7 +196,7 @@ def main():
       if school.zoned:
         z_rem_st = zoned_school_matching(student, school)
         if z_rem_st != student:
-          print(f"Unmatching {z_rem_st.student_name} from {school.school_name}")
+          print(f"Unmatching {z_rem_st.student_name} from {school.school_name} to seat {student.student_name}")
           school.student_matches.pop(z_rem_st)
           school.avail_seats += 1
           set_match(student, school)
@@ -195,7 +213,7 @@ def main():
         p_rem_st = priority_school_matching(student, school)
         #print(f"Remove {p_rem_st.student_name} from {school.school_name}")
         if p_rem_st != student:
-          print(f"Unmatching {p_rem_st.student_name} from {school.school_name}")
+          print(f"Unmatching {p_rem_st.student_name} from {school.school_name} to seat {student.student_name}")
           school.student_matches.pop(p_rem_st)
           school.avail_seats += 1
           set_match(student, school)
@@ -222,11 +240,26 @@ def main():
         else:
           student.next_pref += 1
           school = student.school_rankings[student.next_pref]
+  print("\nAll students matched!\n")
+  print("\n**************Matching Algorithm Complete!**************\n")
+
+  st_list = [Ali, Bee, Cal, Dan, Eva, Flo, Gus, Hal, Isa]
+  
+  print("*******STUDENTS after Matching*******")
+  for st in st_list:
+    print(f"{st.student_name} matched at {st.current_match.school_name}")
+  print("\n")
+
+
+  print("*****RED after Matching*****")
+  print(Red)
+  print("*****BLUE after Matching*****")
+  print(Blue)
+  print("*****YELLOW after Matching*****")
+  print(Yellow)  
 
   
-  print(Red)
-  print(Blue)
-  print(Yellow)
+  
  
 
 
