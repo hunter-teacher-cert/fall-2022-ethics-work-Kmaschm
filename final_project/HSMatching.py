@@ -4,6 +4,8 @@
 # by Shana Elizabeth Henry and Katherine (Kate) Maschmeyer
 # 
 # Demonstrates the algorithm & set up displayed in videos from https://medium.com/algorithms-in-the-wild/decoding-the-nyc-school-admission-lottery-numbers-bae7148e337d
+# Students are set up for processing in random order (not alphabetical), but results are the same 
+
 
 import random
 #import uuid  - chose to use student lottery numbers from the video for ease/clarity of demonstration
