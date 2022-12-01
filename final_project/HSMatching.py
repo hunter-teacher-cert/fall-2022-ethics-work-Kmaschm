@@ -43,7 +43,8 @@ class Student:
 
     
 # School - EXAMPLE: 
-#  Red = School("Red", True, 3, 0, {})
+#  Red = School("🔴Red", True, 3, 0, {})
+# uses color emoji in school name to help make printouts easier to read
 class School:
   def __init__(self, school_name, zoned, avail_seats, priority_seats, student_matches):
     self.school_name = school_name  # string
@@ -150,9 +151,9 @@ def main():
 
   # Schools:
   # school_name, zoned, avail_seats, priority_seats, student_matches
-  Red = School("Red", True, 3, 0, {})
-  Blue = School("Blue", False, 3, 2, {})
-  Yellow = School("Yellow", False, 3, 1, {})
+  Red = School("🔴Red", True, 3, 0, {})
+  Blue = School("🔵Blue", False, 3, 2, {})
+  Yellow = School("🟡Yellow", False, 3, 1, {})
 
   print("**************SCHOOL INFORMATION**************\n")
   print("*****RED*****")
