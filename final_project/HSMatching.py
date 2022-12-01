@@ -5,6 +5,7 @@
 # 
 # Demonstrates the algorithm & set up displayed in videos from https://medium.com/algorithms-in-the-wild/decoding-the-nyc-school-admission-lottery-numbers-bae7148e337d
 
+import random
 #import uuid  - chose to use student lottery numbers from the video for ease/clarity of demonstration
 
 # Student - EXAMPLE:
@@ -184,6 +185,10 @@ def main():
     print(f"*****{st.student_name}*****")
     print(st)
   print("")
+
+  # testing to see if order matters
+  print("Randomizing order of students...")
+  random.shuffle(unmatched_students)
   
   print(">>>>>>> Starting Matching Algorithm...\n")
 
@@ -222,6 +227,9 @@ def main():
           # unmatch z_rem_st
           school.student_matches.pop(z_rem_st)
           school.avail_seats += 1
+          # add removed student back to unmatched list
+          if z_rem_st not in unmatched_students:
+            unmatched_students.insert(0, z_rem_st)
           # match student
           set_match(student, school)
           if student in unmatched_students:
@@ -247,6 +255,9 @@ def main():
           # unmatch p_rem_st
           school.student_matches.pop(p_rem_st)
           school.avail_seats += 1
+          # add removed student back to unmatched list
+          if p_rem_st not in unmatched_students:
+            unmatched_students.insert(0, p_rem_st)
           # match student
           set_match(student, school)
           if student in unmatched_students:
@@ -271,6 +282,9 @@ def main():
           # unmatch rem_st
           school.student_matches.pop(rem_stud)
           school.avail_seats += 1
+          # add removed student back to unmatched list
+          if rem_stud not in unmatched_students:
+            unmatched_students.insert(0, rem_stud)
           # match student
           set_match(student, school)
           if student in unmatched_students:
